@@ -3,7 +3,7 @@ image:
 
 tasks:
   - init: yarn install
-  - command: mkdir -p /workspace/data && mongod --dbpath /workspace/data
+  - command: mysql -e "show databases;"
   - command: redis-server
 
 ports:
