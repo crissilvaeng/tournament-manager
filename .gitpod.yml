@@ -1,0 +1,23 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - init: yarn install
+  - command: mkdir -p /workspace/data && mongod --dbpath /workspace/data
+  - command: redis-server
+
+ports:
+  - port: 3000
+    onOpen: open-preview
+
+github:
+  prebuilds:
+    main: true
+
+vscode:
+  extensions:
+    - editorconfig.editorconfig
+    - dbaeumer.vscode-eslint
+    - orta.vscode-jest
+    - esbenp.prettier-vscode
+    - steoates.autoimport
