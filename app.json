@@ -14,6 +14,7 @@
     },
     "dokku":{
         "plugins": [
+            "mysql"
         ]
     }
 }

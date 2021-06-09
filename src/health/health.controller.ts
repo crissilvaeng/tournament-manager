@@ -4,6 +4,7 @@ import {
   HealthCheck,
   HealthCheckService,
   MemoryHealthIndicator,
+  SequelizeHealthIndicator,
 } from '@nestjs/terminus';
 
 @Controller('health')
@@ -12,6 +13,7 @@ export class HealthController {
     private readonly disk: DiskHealthIndicator,
     private readonly health: HealthCheckService,
     private readonly memory: MemoryHealthIndicator,
+    private readonly sequelize: SequelizeHealthIndicator,
   ) {}
 
   @Get()
@@ -22,6 +24,7 @@ export class HealthController {
       async () => this.memory.checkRSS('memory_rss', 3000 * 1024 * 1024),
       async () =>
         this.disk.checkStorage('disk', { thresholdPercent: 0.75, path: '/' }),
+      async () => this.sequelize.pingCheck('sequelize'),
     ]);
   }
 }
