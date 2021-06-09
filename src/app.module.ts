@@ -6,6 +6,7 @@ import { MorganInterceptor, MorganModule } from 'nest-morgan';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { HealthModule } from './health/health.module';
+import configuration from './config/configuration';
 
 @Module({
   imports: [
@@ -15,7 +16,11 @@ import { HealthModule } from './health/health.module';
       ttl: 60,
       limit: 10,
     }),
-    ConfigModule.forRoot({ envFilePath: '.development.env', isGlobal: true }),
+    ConfigModule.forRoot({
+      envFilePath: '.development.env',
+      isGlobal: true,
+      load: [configuration],
+    }),
   ],
   controllers: [AppController],
   providers: [
