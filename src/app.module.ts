@@ -7,9 +7,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { HealthModule } from './health/health.module';
 import configuration from './config/configuration';
+import { TournamentModule } from './tournament/tournament.module'
 
 @Module({
   imports: [
+    TournamentModule,
     HealthModule,
     MorganModule,
     ThrottlerModule.forRoot({
