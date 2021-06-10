@@ -1,16 +1,13 @@
-import { Tournament } from "../models/tournament.model"
-
+import { Tournament } from '../models/tournament.model';
 
 export interface ITournamentService {
+  getAll(): Promise<Tournament[]>;
 
-    getAll(): Promise<Tournament[]>;
+  getById(id: number): Promise<Tournament>;
 
-    getById(id: number): Promise<Tournament>;
+  create(tournament: Tournament);
 
-    create(tournament: Tournament);
+  edit(tournament: Tournament): Promise<[number, Tournament[]]>;
 
-    edit(tournament: Tournament): Promise<[number, Tournament[]]>;
-
-    delete(id: number);
-
+  delete(id: number);
 }
