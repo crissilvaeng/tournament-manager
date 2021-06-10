@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Subscription } from '../Models/subscription.model';
-import { ISubscriptionService } from '../Interfaces/subscription.service.interface';
 
 @Injectable()
-export class SubscriptionService implements ISubscriptionService {
+export class SubscriptionService {
   constructor(
     @InjectModel(Subscription)
     private subscriptionModel: typeof Subscription,

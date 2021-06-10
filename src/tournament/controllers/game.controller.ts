@@ -3,40 +3,39 @@ import {
   Controller,
   Delete,
   Get,
-  Inject,
   Param,
   Post,
   Put,
 } from '@nestjs/common';
 import { Game } from '../models/game.model';
-import { IGameService } from '../interfaces/Game.service.interface';
+import { GameService } from '../services/game.service';
 
 @Controller('Game')
 export class GameController {
-  constructor(@Inject('IGameService') private serviceInterface: IGameService) {}
+  constructor(private gameService: GameService) {}
 
   @Get()
   async getAll(): Promise<Game[]> {
-    return this.serviceInterface.getAll();
+    return this.gameService.getAll();
   }
 
   @Get(':id')
   async getById(@Param() params): Promise<Game> {
-    return this.serviceInterface.getById(params.id);
+    return this.gameService.getById(params.id);
   }
 
   @Post()
   async create(@Body() game: Game) {
-    return this.serviceInterface.create(game);
+    return this.gameService.create(game);
   }
 
   @Put()
   async edit(@Body() game: Game): Promise<[number, Game[]]> {
-    return this.serviceInterface.edit(game);
+    return this.gameService.edit(game);
   }
 
   @Delete(':id')
   async delete(@Param() params) {
-    this.serviceInterface.delete(params.id);
+    this.gameService.delete(params.id);
   }
 }

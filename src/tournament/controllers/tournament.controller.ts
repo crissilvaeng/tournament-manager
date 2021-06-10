@@ -3,42 +3,39 @@ import {
   Controller,
   Delete,
   Get,
-  Inject,
   Param,
   Post,
   Put,
 } from '@nestjs/common';
 import { Tournament } from '../models/tournament.model';
-import { ITournamentService } from '../interfaces/tournament.service.interface';
+import { TournamentService } from '../services/tournament.service';
 
 @Controller('tournament')
 export class TournamentController {
-  constructor(
-    @Inject('ITournamentService') private serviceInterface: ITournamentService,
-  ) {}
+  constructor(private tournamentService: TournamentService) {}
 
   @Get()
   async getAll(): Promise<Tournament[]> {
-    return this.serviceInterface.getAll();
+    return this.tournamentService.getAll();
   }
 
   @Get(':id')
   async getById(@Param() params): Promise<Tournament> {
-    return this.serviceInterface.getById(params.id);
+    return this.tournamentService.getById(params.id);
   }
 
   @Post()
   async create(@Body() tournament: Tournament) {
-    return this.serviceInterface.create(tournament);
+    return this.tournamentService.create(tournament);
   }
 
   @Put()
   async edit(@Body() tournament: Tournament): Promise<[number, Tournament[]]> {
-    return this.serviceInterface.edit(tournament);
+    return this.tournamentService.edit(tournament);
   }
 
   @Delete(':id')
   async delete(@Param() params) {
-    this.serviceInterface.delete(params.id);
+    this.tournamentService.delete(params.id);
   }
 }

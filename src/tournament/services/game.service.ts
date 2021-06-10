@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Game } from '../Models/game.model';
-import { IGameService } from '../Interfaces/game.service.interface';
 
 @Injectable()
-export class GameService implements IGameService {
+export class GameService {
   constructor(
     @InjectModel(Game)
     private gameModel: typeof Game,
