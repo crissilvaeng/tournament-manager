@@ -13,6 +13,8 @@ ports:
 github:
   prebuilds:
     main: true
+    pullRequests: true
+    addComment: true
 
 vscode:
   extensions:
