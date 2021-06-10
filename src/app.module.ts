@@ -8,9 +8,13 @@ import { AppService } from './app.service';
 import { HealthModule } from './health/health.module';
 import configuration from './config/configuration';
 import { TournamentModule } from './tournament/tournament.module';
+import { SubscriptionModule } from './tournament/subscription.module';
+import { GameModule } from './tournament/game.module';
 
 @Module({
   imports: [
+    SubscriptionModule,
+    GameModule,
     TournamentModule,
     HealthModule,
     MorganModule,

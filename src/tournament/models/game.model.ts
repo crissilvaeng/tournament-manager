@@ -1,7 +1,7 @@
 import { Table, Model, Column, DataType } from 'sequelize-typescript';
 
 @Table
-export class Subscription extends Model<Subscription> {
+export class Game extends Model<Game> {
   @Column({
     type: DataType.STRING,
     allowNull: false,
