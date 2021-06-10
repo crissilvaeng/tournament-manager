@@ -21,3 +21,4 @@ vscode:
     - orta.vscode-jest
     - esbenp.prettier-vscode
     - steoates.autoimport
+    - coenraads.bracket-pair-colorizer-2

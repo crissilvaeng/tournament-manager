@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "steoates.autoimport",
+        "dbaeumer.vscode-eslint",
+        "orta.vscode-jest",
+        "esbenp.prettier-vscode",
+        "editorconfig.editorconfig",
+        "coenraads.bracket-pair-colorizer-2"
+    ]
+}
