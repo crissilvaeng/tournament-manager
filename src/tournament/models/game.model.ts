@@ -1,22 +1,5 @@
-import { Table, Model, Column, DataType } from 'sequelize-typescript';
-
-@Table
-export class Game extends Model<Game> {
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
+export class Game {
   playerWhite: string;
-
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
   playerBlack: string;
-
-  @Column({
-    type: DataType.STRING,
-    allowNull: true,
-  })
   gameResult: string;
 }
