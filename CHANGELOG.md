@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/yifan-ca/tournament-manager/compare/v0.2.0...v0.3.0) (2021-06-11)
+
+
+### Features
+
+* use nest crud generator to scafold tornauments resource ([9e01ae8](https://github.com/yifan-ca/tournament-manager/commits/9e01ae871811d40496b2cac270959be67ebe34f6))
+
 ## 0.2.0 (2021-06-11)
 
 
