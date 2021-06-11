@@ -4,16 +4,20 @@ import { CreateTournamentDto } from './dto/create-tournament.dto';
 import { TournamentDto } from './dto/tournament.dto';
 import { UpdateTournamentDto } from './dto/update-tournament.dto';
 import { Tournament } from './entities/tournament.entity';
+import { TournamentsScheduler } from './tournaments.scheduler';
 
 @Injectable()
 export class TournamentsService {
   constructor(
     @InjectModel(Tournament)
-    private repository: typeof Tournament,
+    private readonly repository: typeof Tournament,
+    private readonly scheduler: TournamentsScheduler,
   ) {}
 
   async create(tournament: CreateTournamentDto): Promise<TournamentDto> {
-    return await this.repository.create({ ...tournament });
+    const result = await this.repository.create({ ...tournament });
+    await this.scheduler.produce(result);
+    return result;
   }
 
   async findAll(): Promise<TournamentDto[]> {

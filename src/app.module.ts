@@ -2,6 +2,7 @@ import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { MorganInterceptor, MorganModule } from 'nest-morgan';
 import { SequelizeSlugify } from 'sequelize-slugify';
@@ -10,6 +11,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import configuration from './config/configuration';
 import { HealthModule } from './health/health.module';
+import { TasksModule } from './tasks/tasks.module';
 import { Tournament } from './tournaments/entities/tournament.entity';
 import { TournamentsModule } from './tournaments/tournaments.module';
 
@@ -17,6 +19,9 @@ import { TournamentsModule } from './tournaments/tournaments.module';
   imports: [
     HealthModule,
     MorganModule,
+    TournamentsModule,
+    TasksModule,
+    EventEmitterModule.forRoot(),
     ThrottlerModule.forRoot({
       ttl: 60,
       limit: 10,
@@ -33,7 +38,6 @@ import { TournamentsModule } from './tournaments/tournaments.module';
       }),
       inject: [ConfigService],
     }),
-    TournamentsModule,
   ],
   controllers: [AppController],
   providers: [

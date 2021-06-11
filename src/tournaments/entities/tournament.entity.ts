@@ -3,9 +3,9 @@ import * as moment from 'moment';
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
 export enum TournamentStatus {
-  Open = 'Open',
-  Close = 'Close',
-  Running = 'Running',
+  Open = 'OPEN',
+  Close = 'CLOSE',
+  Running = 'RUNNING',
 }
 
 @Exclude()
