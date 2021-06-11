@@ -1,26 +1,38 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTournament } from './dto/create-tournament.dto';
-import { UpdateTournament } from './dto/update-tournament.dto';
+import { InjectModel } from '@nestjs/sequelize';
+import { CreateTournamentDto } from './dto/create-tournament.dto';
+import { TournamentDto } from './dto/tournament.dto';
+import { UpdateTournamentDto } from './dto/update-tournament.dto';
+import { Tournament } from './entities/tournament.entity';
 
 @Injectable()
 export class TournamentsService {
-  create(createTournament: CreateTournament) {
-    return 'This action adds a new tournament';
+  constructor(
+    @InjectModel(Tournament)
+    private repository: typeof Tournament,
+  ) {}
+
+  async create(tournament: CreateTournamentDto): Promise<TournamentDto> {
+    return await this.repository.create({ ...tournament });
   }
 
-  findAll() {
-    return `This action returns all tournaments`;
+  async findAll(): Promise<TournamentDto[]> {
+    return await this.repository.findAll();
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} tournament`;
+  async findOne(id: string): Promise<TournamentDto> {
+    return await this.repository.findOne({ where: { id } });
   }
 
-  update(id: string, updateTournament: UpdateTournament) {
-    return `This action updates a #${id} tournament`;
-  }
-
-  remove(id: string) {
-    return `This action removes a #${id} tournament`;
+  async update(
+    id: string,
+    tournament: UpdateTournamentDto,
+  ): Promise<TournamentDto> {
+    return await this.repository.findOne({ where: { id } }).then((data) => {
+      if (!data) {
+        return data;
+      }
+      return data.update({ ...tournament });
+    });
   }
 }

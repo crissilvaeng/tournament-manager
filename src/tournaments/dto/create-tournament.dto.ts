@@ -1,16 +1,7 @@
-import { Type } from 'class-transformer';
-import { IsNotEmpty, IsOptional, IsString, MinDate } from 'class-validator';
+import { OmitType } from '@nestjs/swagger';
+import { TournamentDto } from './tournament.dto';
 
-export class CreateTournament {
-  @IsString()
-  @IsNotEmpty()
-  title: string;
-
-  @IsString()
-  @IsOptional()
-  description?: string;
-
-  @Type(() => Date)
-  @MinDate(new Date())
-  date: Date;
-}
+export class CreateTournamentDto extends OmitType(TournamentDto, [
+  'slug',
+  'status',
+] as const) {}

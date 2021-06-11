@@ -1,14 +1,15 @@
+import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { MorganInterceptor, MorganModule } from 'nest-morgan';
-import { HealthModule } from './health/health.module';
-import configuration from './config/configuration';
+import { SequelizeSlugify } from 'sequelize-slugify';
 import { Sequelize } from 'sequelize-typescript';
-import { BullModule } from '@nestjs/bull';
-import { TournamentsModule } from './tournaments/tournaments.module';
+import configuration from './config/configuration';
+import { HealthModule } from './health/health.module';
 import { Tournament } from './tournaments/entities/tournament.entity';
+import { TournamentsModule } from './tournaments/tournaments.module';
 
 @Module({
   imports: [
@@ -53,6 +54,10 @@ import { Tournament } from './tournaments/entities/tournament.entity';
         });
         sequelize.addModels([Tournament]);
         await sequelize.sync();
+        SequelizeSlugify.slugifyModel(Tournament, {
+          source: ['title'],
+          suffixSource: ['timestamp'],
+        });
         return sequelize;
       },
     },

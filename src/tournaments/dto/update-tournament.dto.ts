@@ -1,4 +1,6 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateTournament } from './create-tournament.dto';
+import { PickType } from '@nestjs/swagger';
+import { TournamentDto } from './tournament.dto';
 
-export class UpdateTournament extends PartialType(CreateTournament) {}
+export class UpdateTournamentDto extends PickType(TournamentDto, [
+  'description',
+] as const) {}
