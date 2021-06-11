@@ -20,15 +20,15 @@ export class TournamentsService {
     return await this.repository.findAll();
   }
 
-  async findOne(id: string): Promise<TournamentDto> {
-    return await this.repository.findOne({ where: { id } });
+  async findOne(slug: string): Promise<TournamentDto> {
+    return await this.repository.findOne({ where: { slug } });
   }
 
   async update(
-    id: string,
+    slug: string,
     tournament: UpdateTournamentDto,
   ): Promise<TournamentDto> {
-    return await this.repository.findOne({ where: { id } }).then((data) => {
+    return await this.repository.findOne({ where: { slug } }).then((data) => {
       if (!data) {
         return data;
       }

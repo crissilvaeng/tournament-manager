@@ -32,16 +32,16 @@ export class TournamentsController {
     return this.tournamentsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tournamentsService.findOne(id);
+  @Get(':slug')
+  findOne(@Param('slug') slug: string) {
+    return this.tournamentsService.findOne(slug);
   }
 
-  @Patch(':id')
+  @Patch(':slug')
   update(
-    @Param('id') id: string,
+    @Param('slug') slug: string,
     @Body() updateTournamentDto: UpdateTournamentDto,
   ) {
-    return this.tournamentsService.update(id, updateTournamentDto);
+    return this.tournamentsService.update(slug, updateTournamentDto);
   }
 }
