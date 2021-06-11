@@ -8,7 +8,7 @@ export default () => {
       host: connection.hostname,
       port: connection.port,
       username: connection.user,
-      password: connection.password || '',
+      password: connection.password || '$Tijuca20271',
       database: connection.path?.[0],
     },
   };

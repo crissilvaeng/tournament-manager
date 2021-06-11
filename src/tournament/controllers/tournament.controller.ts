@@ -9,10 +9,14 @@ import {
 } from '@nestjs/common';
 import { Tournament } from '../models/tournament.model';
 import { TournamentService } from '../services/tournament.service';
+import { ScheduleProducer } from '../tasks/schedule.producer';
 
 @Controller('tournament')
 export class TournamentController {
-  constructor(private tournamentService: TournamentService) {}
+  constructor(
+    private tournamentService: TournamentService,
+    private producer: ScheduleProducer,
+  ) {}
 
   @Get()
   async getAll(): Promise<Tournament[]> {
@@ -26,6 +30,7 @@ export class TournamentController {
 
   @Post()
   async create(@Body() tournament: Tournament) {
+    this.producer.process(tournament);
     return this.tournamentService.create(tournament);
   }
 

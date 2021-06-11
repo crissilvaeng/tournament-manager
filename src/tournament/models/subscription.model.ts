@@ -1,4 +1,13 @@
-import { Table, Model, Column, DataType } from 'sequelize-typescript';
+import {
+  Table,
+  Model,
+  Column,
+  DataType,
+  HasOne,
+  BelongsTo,
+  ForeignKey,
+} from 'sequelize-typescript';
+import { Tournament } from './tournament.model';
 
 @Table
 export class Subscription extends Model<Subscription> {
@@ -14,9 +23,10 @@ export class Subscription extends Model<Subscription> {
   })
   agentId: string;
 
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
-  tournamentId: string;
+  @ForeignKey(() => Tournament)
+  @Column
+  tournamentId: number;
+
+  @BelongsTo(() => Tournament)
+  tournament: Tournament;
 }

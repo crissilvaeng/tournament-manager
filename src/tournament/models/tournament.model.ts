@@ -1,4 +1,5 @@
-import { Table, Model, Column, DataType } from 'sequelize-typescript';
+import { Table, Model, Column, DataType, HasMany } from 'sequelize-typescript';
+import { Subscription } from './subscription.model';
 
 @Table
 export class Tournament extends Model<Tournament> {
@@ -19,4 +20,7 @@ export class Tournament extends Model<Tournament> {
     allowNull: false,
   })
   startsAt: Date;
+
+  @HasMany(() => Subscription)
+  subscriptions: Subscription[];
 }

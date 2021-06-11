@@ -3,6 +3,7 @@ import { Processor, Process } from '@nestjs/bull';
 import { TournamentSchedule } from './interfaces/tournament.interface';
 import { Logger } from '@nestjs/common';
 import { TournamentService } from '../services/tournament.service';
+import { Tournament } from '../models/tournament.model';
 
 @Processor('schedule.queue')
 export class ScheduleConsumer {
@@ -13,7 +14,11 @@ export class ScheduleConsumer {
   @Process()
   async process(job: Job<TournamentSchedule>): Promise<void> {
     // TODO: implements tournamanent start behaviour
-    const tournament = await this.tournament.getById(job.data.id);
+    const tournament = await Tournament.findOne({
+      where: {
+        id: job.data.id,
+      },
+    });
     this.logger.log(tournament);
   }
 }
