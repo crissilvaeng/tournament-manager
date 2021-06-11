@@ -17,8 +17,8 @@ export class TournamentService {
     return this.tournamentModel.findByPk(id);
   }
 
-  async create(tournament: Tournament) {
-    this.tournamentModel.create(tournament);
+  async create(tournament: Tournament): Promise<Tournament> {
+    return this.tournamentModel.create(tournament);
   }
 
   async edit(tournament: Tournament): Promise<[number, Tournament[]]> {
