@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { TournamentsService } from './tournaments.service';
-import { CreateTournamentDto } from './dto/create-tournament.dto';
-import { UpdateTournamentDto } from './dto/update-tournament.dto';
+import { CreateTournament } from './dto/create-tournament.dto';
+import { UpdateTournament } from './dto/update-tournament.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Tournaments')
@@ -10,7 +10,7 @@ export class TournamentsController {
   constructor(private readonly tournamentsService: TournamentsService) {}
 
   @Post()
-  create(@Body() createTournamentDto: CreateTournamentDto) {
+  create(@Body() createTournamentDto: CreateTournament) {
     return this.tournamentsService.create(createTournamentDto);
   }
 
@@ -21,14 +21,14 @@ export class TournamentsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.tournamentsService.findOne(+id);
+    return this.tournamentsService.findOne(id);
   }
 
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateTournamentDto: UpdateTournamentDto,
+    @Body() updateTournamentDto: UpdateTournament,
   ) {
-    return this.tournamentsService.update(+id, updateTournamentDto);
+    return this.tournamentsService.update(id, updateTournamentDto);
   }
 }

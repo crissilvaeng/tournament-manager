@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTournamentDto } from './dto/create-tournament.dto';
-import { UpdateTournamentDto } from './dto/update-tournament.dto';
+import { CreateTournament } from './dto/create-tournament.dto';
+import { UpdateTournament } from './dto/update-tournament.dto';
 
 @Injectable()
 export class TournamentsService {
-  create(createTournamentDto: CreateTournamentDto) {
+  create(createTournament: CreateTournament) {
     return 'This action adds a new tournament';
   }
 
@@ -12,15 +12,15 @@ export class TournamentsService {
     return `This action returns all tournaments`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} tournament`;
   }
 
-  update(id: number, updateTournamentDto: UpdateTournamentDto) {
+  update(id: string, updateTournament: UpdateTournament) {
     return `This action updates a #${id} tournament`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} tournament`;
   }
 }

@@ -13,6 +13,9 @@ async function bootstrap() {
   app.use(compression());
   app.use(helmet());
 
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.setGlobalPrefix('api');
+
   const config = new DocumentBuilder()
     .setTitle(Case.title(process.env.npm_package_name))
     .setDescription(process.env.npm_package_description)
@@ -22,9 +25,6 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
-
-  app.useGlobalPipes(new ValidationPipe());
-  app.setGlobalPrefix('api');
 
   await app.listen(process.env.PORT || 3000);
 }
