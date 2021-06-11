@@ -12,6 +12,7 @@ import { TournamentModule } from './tournament/tournament.module';
 import { Sequelize } from 'sequelize-typescript';
 import { Tournament } from './tournament/models/tournament.model';
 import { BullModule } from '@nestjs/bull';
+import { TournamentsModule } from './tournaments/tournaments.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { BullModule } from '@nestjs/bull';
       }),
       inject: [ConfigService],
     }),
+    TournamentsModule,
   ],
   controllers: [AppController],
   providers: [
