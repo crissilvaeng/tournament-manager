@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Tournament } from '../Models/tournament.model';
+import { Tournament } from '../models/tournament.model';
 
 @Injectable()
 export class TournamentService {
