@@ -1,7 +1,10 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as Case from 'case';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
+import 'reflect-metadata';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -11,14 +14,16 @@ async function bootstrap() {
   app.use(helmet());
 
   const config = new DocumentBuilder()
-    .setTitle(process.env.npm_package_name)
+    .setTitle(Case.title(process.env.npm_package_name))
     .setDescription(process.env.npm_package_description)
-    .setVersion(process.env.GIT_SHA)
+    .setVersion(process.env.npm_package_version)
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
+  app.useGlobalPipes(new ValidationPipe());
   await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
