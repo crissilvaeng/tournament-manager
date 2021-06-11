@@ -1,7 +1,7 @@
 {
   "name": "tournament-manager",
   "description": "Service that manages the lifecycle of a tournament and its inscriptions.",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "main": "index.js",
   "repository": "https://github.com/yifan-ca/tournament-manager.git",
   "author": "Cristina Silva <crissilva.eng@gmail.com>",
