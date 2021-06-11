@@ -1,6 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { RedisOptions, Transport } from '@nestjs/microservices';
+import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import {
   DiskHealthIndicator,
   HealthCheck,
@@ -21,6 +22,7 @@ export class HealthController {
     private readonly sequelize: SequelizeHealthIndicator,
   ) {}
 
+  @ApiExcludeEndpoint()
   @Get()
   @HealthCheck()
   check() {
