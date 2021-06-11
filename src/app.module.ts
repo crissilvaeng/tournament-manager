@@ -1,21 +1,20 @@
-import { Subscription } from './tournament/models/subscription.model';
+import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { MorganInterceptor, MorganModule } from 'nest-morgan';
+import { SequelizeSlugify } from 'sequelize-slugify';
+import { Sequelize } from 'sequelize-typescript';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { HealthModule } from './health/health.module';
 import configuration from './config/configuration';
-import { TournamentModule } from './tournament/tournament.module';
-import { Sequelize } from 'sequelize-typescript';
-import { Tournament } from './tournament/models/tournament.model';
-import { BullModule } from '@nestjs/bull';
+import { HealthModule } from './health/health.module';
+import { Tournament } from './tournaments/entities/tournament.entity';
+import { TournamentsModule } from './tournaments/tournaments.module';
 
 @Module({
   imports: [
-    TournamentModule,
     HealthModule,
     MorganModule,
     ThrottlerModule.forRoot({
@@ -34,6 +33,7 @@ import { BullModule } from '@nestjs/bull';
       }),
       inject: [ConfigService],
     }),
+    TournamentsModule,
   ],
   controllers: [AppController],
   providers: [
@@ -53,9 +53,14 @@ import { BullModule } from '@nestjs/bull';
           username: config.get('database.username'),
           password: config.get('database.password'),
           database: config.get('database.database'),
+          repositoryMode: true,
         });
-        sequelize.addModels([Tournament, Subscription]);
+        sequelize.addModels([Tournament]);
         await sequelize.sync();
+        SequelizeSlugify.slugifyModel(Tournament, {
+          source: ['title'],
+          suffixSource: ['timestamp'],
+        });
         return sequelize;
       },
     },
