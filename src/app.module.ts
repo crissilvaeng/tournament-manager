@@ -4,8 +4,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { MorganInterceptor, MorganModule } from 'nest-morgan';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { HealthModule } from './health/health.module';
 import configuration from './config/configuration';
 import { TournamentModule } from './tournament/tournament.module';
@@ -37,9 +35,8 @@ import { TournamentsModule } from './tournaments/tournaments.module';
     }),
     TournamentsModule,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [
-    AppService,
     {
       provide: APP_INTERCEPTOR,
       useClass: MorganInterceptor('combined'),
