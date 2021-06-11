@@ -3,12 +3,18 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
+  HttpCode,
+  NotFoundException,
   Param,
   Patch,
   Post,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  ApiNoContentResponse,
+  ApiNotFoundResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CreateTournamentDto } from './dto/create-tournament.dto';
 import { TournamentDto } from './dto/tournament.dto';
 import { UpdateTournamentDto } from './dto/update-tournament.dto';
@@ -28,20 +34,27 @@ export class TournamentsController {
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<TournamentDto[]> {
     return this.tournamentsService.findAll();
   }
 
   @Get(':slug')
-  findOne(@Param('slug') slug: string) {
-    return this.tournamentsService.findOne(slug);
+  @ApiNotFoundResponse()
+  async findOne(@Param('slug') slug: string): Promise<TournamentDto> {
+    const tournament = await this.tournamentsService.findOne(slug);
+    if (!tournament) {
+      throw new NotFoundException();
+    }
+    return tournament;
   }
 
+  @HttpCode(204)
   @Patch(':slug')
-  update(
+  @ApiNoContentResponse()
+  async update(
     @Param('slug') slug: string,
     @Body() updateTournamentDto: UpdateTournamentDto,
-  ) {
-    return this.tournamentsService.update(slug, updateTournamentDto);
+  ): Promise<void> {
+    await this.tournamentsService.update(slug, updateTournamentDto);
   }
 }

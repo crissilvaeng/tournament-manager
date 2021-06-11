@@ -24,15 +24,9 @@ export class TournamentsService {
     return await this.repository.findOne({ where: { slug } });
   }
 
-  async update(
-    slug: string,
-    tournament: UpdateTournamentDto,
-  ): Promise<TournamentDto> {
-    return await this.repository.findOne({ where: { slug } }).then((data) => {
-      if (!data) {
-        return data;
-      }
-      return data.update({ ...tournament });
-    });
+  async update(slug: string, tournament: UpdateTournamentDto): Promise<number> {
+    return await this.repository
+      .update({ ...tournament }, { where: { slug } })
+      .then((result) => result[0]);
   }
 }
