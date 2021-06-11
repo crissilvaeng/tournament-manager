@@ -6,6 +6,8 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { MorganInterceptor, MorganModule } from 'nest-morgan';
 import { SequelizeSlugify } from 'sequelize-slugify';
 import { Sequelize } from 'sequelize-typescript';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 import configuration from './config/configuration';
 import { HealthModule } from './health/health.module';
 import { Tournament } from './tournaments/entities/tournament.entity';
@@ -33,8 +35,9 @@ import { TournamentsModule } from './tournaments/tournaments.module';
     }),
     TournamentsModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [
+    AppService,
     {
       provide: APP_INTERCEPTOR,
       useClass: MorganInterceptor('combined'),
