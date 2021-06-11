@@ -9,7 +9,7 @@ export default () => {
       port: connection.port,
       username: connection.user,
       password: connection.password || '',
-      database: connection.path?.[0] || '',
+      database: connection.path?.[0],
     },
   };
 };
