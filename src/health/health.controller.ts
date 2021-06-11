@@ -1,18 +1,23 @@
 import { Controller, Get } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { RedisOptions, Transport } from '@nestjs/microservices';
 import {
   DiskHealthIndicator,
   HealthCheck,
   HealthCheckService,
   MemoryHealthIndicator,
+  MicroserviceHealthIndicator,
   SequelizeHealthIndicator,
 } from '@nestjs/terminus';
 
 @Controller('health')
 export class HealthController {
   constructor(
+    private readonly config: ConfigService,
     private readonly disk: DiskHealthIndicator,
     private readonly health: HealthCheckService,
     private readonly memory: MemoryHealthIndicator,
+    private readonly microservice: MicroserviceHealthIndicator,
     private readonly sequelize: SequelizeHealthIndicator,
   ) {}
 
@@ -25,6 +30,13 @@ export class HealthController {
       async () =>
         this.disk.checkStorage('disk', { thresholdPercent: 0.75, path: '/' }),
       async () => this.sequelize.pingCheck('sequelize'),
+      async () =>
+        this.microservice.pingCheck<RedisOptions>('redis', {
+          transport: Transport.REDIS,
+          options: {
+            url: this.config.get<string>('REDIS_URL'),
+          },
+        }),
     ]);
   }
 }

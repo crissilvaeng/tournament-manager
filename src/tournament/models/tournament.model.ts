@@ -13,4 +13,10 @@ export class Tournament extends Model<Tournament> {
     allowNull: true,
   })
   description: string;
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: false,
+  })
+  startsAt: Date;
 }

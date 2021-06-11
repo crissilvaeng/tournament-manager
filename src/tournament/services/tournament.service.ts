@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Tournament } from '../Models/tournament.model';
+import { Tournament } from '../models/tournament.model';
 
 @Injectable()
 export class TournamentService {
@@ -17,8 +17,8 @@ export class TournamentService {
     return this.tournamentModel.findByPk(id);
   }
 
-  async create(tournament: Tournament) {
-    this.tournamentModel.create(tournament);
+  async create(tournament: Tournament): Promise<Tournament> {
+    return this.tournamentModel.create(tournament);
   }
 
   async edit(tournament: Tournament): Promise<[number, Tournament[]]> {
