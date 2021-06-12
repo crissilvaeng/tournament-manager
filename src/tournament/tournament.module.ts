@@ -1,5 +1,3 @@
-import { ScheduleProducer } from './tasks/schedule.producer';
-import { ScheduleConsumer } from './tasks/schedule.consumer';
 import { Module } from '@nestjs/common';
 import { TournamentController } from './controllers/tournament.controller';
 import { TournamentService } from './services/tournament.service';
@@ -16,11 +14,6 @@ import { BullModule } from '@nestjs/bull';
     SequelizeModule.forFeature([Tournament, Subscription]),
   ],
   controllers: [TournamentController, SubscriptionController],
-  providers: [
-    TournamentService,
-    SubscriptionService,
-    ScheduleConsumer,
-    ScheduleProducer,
-  ],
+  providers: [TournamentService, SubscriptionService],
 })
 export class TournamentModule {}

@@ -1,11 +1,10 @@
 import { Exclude, Expose } from 'class-transformer';
-import * as moment from 'moment';
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
 export enum TournamentStatus {
-  Open = 'Open',
-  Close = 'Close',
-  Running = 'Running',
+  Open = 'OPEN',
+  Close = 'CLOSE',
+  Running = 'RUNNING',
 }
 
 @Exclude()
@@ -13,11 +12,7 @@ export enum TournamentStatus {
   timestamps: true,
   paranoid: true,
   version: true,
-  getterMethods: {
-    timestamp() {
-      return moment().unix();
-    },
-  },
+  underscored: true,
 })
 export class Tournament extends Model {
   @Column({
@@ -61,4 +56,11 @@ export class Tournament extends Model {
     defaultValue: TournamentStatus.Open,
   })
   status: string;
+
+  @Column({
+    type: DataType.VIRTUAL,
+  })
+  get timestamp() {
+    return this.createdAt.getTime();
+  }
 }

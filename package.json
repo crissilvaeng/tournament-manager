@@ -1,7 +1,7 @@
 {
   "name": "tournament-manager",
   "description": "Service that manages the lifecycle of a tournament and its inscriptions.",
-  "version": "0.4.0",
+  "version": "0.6.0",
   "main": "index.js",
   "repository": "https://github.com/yifan-ca/tournament-manager.git",
   "author": "Cristina Silva <crissilva.eng@gmail.com>",
@@ -31,6 +31,7 @@
     "@nestjs/common": "^7.6.15",
     "@nestjs/config": "^0.6.3",
     "@nestjs/core": "^7.6.15",
+    "@nestjs/event-emitter": "^0.0.3",
     "@nestjs/microservices": "^7.6.17",
     "@nestjs/platform-express": "^7.6.15",
     "@nestjs/sequelize": "^0.2.0",
