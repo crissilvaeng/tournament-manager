@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/yifan-ca/tournament-manager/compare/v0.5.0...v0.6.0) (2021-06-12)
+
+
+### Features
+
+* adds log level by node env ([54ed044](https://github.com/yifan-ca/tournament-manager/commits/54ed04494bffeb97be14c0bac0e59130bf75f01c))
+* use a consistent timestamp to slug field based in created_at ([34f7fd7](https://github.com/yifan-ca/tournament-manager/commits/34f7fd706c8c1df3a652b4e877bfdd5629862126))
+
+
+### Bug Fixes
+
+* add port to deploy with same port in Dokku ([7866a2e](https://github.com/yifan-ca/tournament-manager/commits/7866a2e89ab4b1fb77a462d5f8661d09d53ccb9e))
+* undefined task payload in consumer ([e741ba3](https://github.com/yifan-ca/tournament-manager/commits/e741ba3a790f60325baf7ddb6e87579f77c549f1))
+
 ## [0.5.0](https://github.com/yifan-ca/tournament-manager/compare/v0.4.0...v0.5.0) (2021-06-11)
 
 
