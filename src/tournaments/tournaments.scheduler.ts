@@ -1,8 +1,10 @@
-import { ScheduleProducer } from './../tasks/schedule.producer';
 import { Injectable, Logger } from '@nestjs/common';
-import { TournamentDto } from './dto/tournament.dto';
-import * as moment from 'moment';
 import { OnEvent } from '@nestjs/event-emitter';
+import { Job } from 'bull';
+import * as moment from 'moment';
+import { ScheduleTask } from '../tasks/dto/schedule.task.dto';
+import { ScheduleProducer } from '../tasks/schedule.producer';
+import { TournamentDto } from './dto/tournament.dto';
 
 @Injectable()
 export class TournamentsScheduler {
@@ -10,18 +12,21 @@ export class TournamentsScheduler {
 
   constructor(private readonly scheduler: ScheduleProducer) {}
 
-  async produce(tournament: TournamentDto): Promise<void> {
+  async produce(tournament: TournamentDto): Promise<Job<ScheduleTask>> {
+    this.logger.log(`Scheduling event. ${JSON.stringify(tournament)}`);
     const diff = moment(tournament.startTime).diff(moment());
     const delay = diff.valueOf();
-    await this.scheduler.process({
+    return await this.scheduler.process({
       event: 'tournament.started',
-      payload: JSON.stringify(TournamentDto),
+      payload: tournament,
       delay,
     });
   }
 
-  @OnEvent('tournament.started')
-  consume(payload: TournamentDto) {
-    this.logger.log(JSON.stringify(payload));
+  @OnEvent('tournament.started', { async: true })
+  consume(task: ScheduleTask) {
+    const tournament = task.payload as TournamentDto;
+    this.logger.log(`Processing event. ${JSON.stringify(tournament)}`);
+    // TODO: implement event start event
   }
 }

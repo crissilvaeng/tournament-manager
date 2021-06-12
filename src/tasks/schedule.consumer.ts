@@ -12,15 +12,9 @@ export class ScheduleConsumer {
 
   @Process()
   async process(job: Job<ScheduleTask>): Promise<void> {
-    const success = this.emitter.emit(
-      job.data.event,
-      JSON.parse(job.data.payload),
-    );
-    this.logger.log(`Processing: ${JSON.stringify(job)}`);
+    const success = await this.emitter.emit(job.data.event, job.data);
     if (!success) {
-      this.logger.error(
-        `Job failed: ${JSON.stringify(job.data)}. Scheduling retry...`,
-      );
+      this.logger.error('Job failed. Retrying...', JSON.stringify(job));
       return await job.retry();
     }
   }

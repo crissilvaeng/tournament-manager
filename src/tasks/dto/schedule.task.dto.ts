@@ -1,5 +1,5 @@
 export class ScheduleTask {
   event: string;
-  payload: string;
+  payload: any;
   delay?: number;
 }
