@@ -8,7 +8,13 @@ import 'reflect-metadata';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule, {
+    cors: true,
+    logger:
+      process.env.NODE_ENV === 'development'
+        ? ['log', 'debug', 'error', 'verbose', 'warn']
+        : ['error', 'warn'],
+  });
 
   app.use(compression());
   app.use(helmet());
@@ -23,8 +29,8 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('', app, document);
+  SwaggerModule.setup('docs', app, document);
 
-  await app.listen(process.env.PORT || 3000);
+  await app.listen(process.env.PORT);
 }
 bootstrap();
