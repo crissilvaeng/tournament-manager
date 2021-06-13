@@ -15,7 +15,6 @@ export class MockTournamentsService {
     };
     resolve(tournament);
   });
-  constructor() {}
   create(tournament: CreateTournamentDto): Promise<TournamentDto> {
     return this.result;
   }
