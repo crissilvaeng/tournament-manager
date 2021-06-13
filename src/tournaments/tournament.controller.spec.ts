@@ -51,5 +51,31 @@ describe('AppController', () => {
         result,
       );
     });
+
+    it('should return an Array of tournament', async () => {
+      const resultArray = new Promise<TournamentDto[]>((resolve, reject) => {
+        const tournament: [TournamentDto] = [
+          {
+            slug: '1',
+            title: 'tournament test',
+            description: 'description',
+            startTime: new Date(),
+            status: 'open',
+          },
+        ];
+        resolve(tournament);
+      });
+      jest
+        .spyOn(tournamentsService, 'findAll')
+        .mockImplementation(() => resultArray);
+      expect(tournamentsController.findAll()).toStrictEqual(resultArray);
+    });
+
+    it('should return a tournament', async () => {
+      jest
+        .spyOn(tournamentsService, 'findOne')
+        .mockImplementation(() => result);
+      expect(tournamentsController.findOne('1')).toStrictEqual(result);
+    });
   });
 });

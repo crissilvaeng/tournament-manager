@@ -15,16 +15,32 @@ export class MockTournamentsService {
     };
     resolve(tournament);
   });
+
   create(tournament: CreateTournamentDto): Promise<TournamentDto> {
     return this.result;
   }
   findAll(): Promise<TournamentDto[]> {
-    throw new Error('Method not implemented.');
+    const resultArray = new Promise<TournamentDto[]>((resolve, reject) => {
+      const tournament: [TournamentDto] = [
+        {
+          slug: '1',
+          title: 'tournament test',
+          description: 'description',
+          startTime: new Date(),
+          status: 'open',
+        },
+      ];
+      resolve(tournament);
+    });
+    return resultArray;
   }
   findOne(slug: string): Promise<TournamentDto> {
     return this.result;
   }
   update(slug: string, tournament: UpdateTournamentDto): Promise<number> {
-    throw new Error('Method not implemented.');
+    const result = new Promise<number>((resolve, reject) => {
+      resolve(1);
+    });
+    return result;
   }
 }
