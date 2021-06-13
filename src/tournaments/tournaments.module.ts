@@ -9,6 +9,11 @@ import { TournamentsService } from './tournaments.service';
 @Module({
   imports: [TasksModule, SequelizeModule.forFeature([Tournament])],
   controllers: [TournamentsController],
-  providers: [TournamentsService, TournamentsScheduler],
+  providers: [
+    {
+      provide: 'ITournamentsService',
+      useClass: TournamentsService
+    },
+    TournamentsService, TournamentsScheduler],
 })
 export class TournamentsModule {}
