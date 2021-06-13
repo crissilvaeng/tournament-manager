@@ -19,12 +19,12 @@ describe('AppController', () => {
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      imports: [TasksModule, SequelizeModule.forFeature([Tournament])],
+      imports: [],
   controllers: [TournamentsController],
   providers: [{
     provide: 'ITournamentsService',
     useClass: MockTournamentsService
-  }, TournamentsScheduler],
+  },MockTournamentsService],
     }).compile();
 
     tournamentsController = app.get<TournamentsController>(TournamentsController);
@@ -37,7 +37,7 @@ describe('AppController', () => {
       
     const tournamentTest: CreateTournamentDto = {'title': 'tournament test', 'description': 'description', 'startTime': new Date()}
     jest.spyOn(tournamentsService, 'create').mockImplementation(() => result);
-    expect(tournamentsController.create(tournamentTest)).toBe(result);
+    expect(tournamentsController.create(tournamentTest)).toStrictEqual(result);
     });
   });
 });
