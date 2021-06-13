@@ -12,8 +12,10 @@ import { TournamentsService } from './tournaments.service';
   providers: [
     {
       provide: 'ITournamentsService',
-      useClass: TournamentsService
+      useClass: TournamentsService,
     },
-    TournamentsService, TournamentsScheduler],
+    TournamentsService,
+    TournamentsScheduler,
+  ],
 })
 export class TournamentsModule {}

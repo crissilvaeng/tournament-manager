@@ -19,15 +19,17 @@ import {
 import { CreateTournamentDto } from './dto/create-tournament.dto';
 import { TournamentDto } from './dto/tournament.dto';
 import { UpdateTournamentDto } from './dto/update-tournament.dto';
-import { TournamentsService } from './tournaments.service';
 import { ITournamentsService } from './tournaments.service.interface';
 
 @ApiTags('Tournaments')
 @Controller('tournaments')
 @UseInterceptors(ClassSerializerInterceptor)
 export class TournamentsController {
-  constructor(@Inject('ITournamentsService') private readonly tournamentsService: ITournamentsService) {}
-  
+  constructor(
+    @Inject('ITournamentsService')
+    private readonly tournamentsService: ITournamentsService,
+  ) {}
+
   @Post()
   create(
     @Body() createTournamentDto: CreateTournamentDto,
