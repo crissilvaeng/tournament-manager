@@ -20,6 +20,7 @@ async function bootstrap() {
   app.connectMicroservice({
     transport: Transport.TCP,
     options: {
+      port: 3001,
       url: 'nats://localhost:4222',
     },
   });

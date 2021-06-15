@@ -19,7 +19,6 @@ import {
 import { CreateTournamentDto } from '../dto/create-tournament.dto';
 import { TournamentDto } from '../dto/tournament.dto';
 import { UpdateTournamentDto } from '../dto/update-tournament.dto';
-import { TournamentsScheduler } from '../tournaments.scheduler';
 import { ITournamentsService } from '../tournaments.service.interface';
 
 @ApiTags('Tournaments')
@@ -29,7 +28,6 @@ export class TournamentsController {
   constructor(
     @Inject('ITournamentsService')
     private readonly tournamentsService: ITournamentsService,
-    private readonly tournamentsScheduler: TournamentsScheduler,
   ) {}
 
   @Post()
