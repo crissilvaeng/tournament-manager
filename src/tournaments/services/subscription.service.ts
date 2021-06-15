@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Subscription } from '../../tournaments/entities/subscription.entity';
+import { Subscription } from '../entities/subscription.entity';
 
 @Injectable()
 export class SubscriptionService {
@@ -18,7 +18,8 @@ export class SubscriptionService {
   }
 
   async create(subscription: Subscription) {
-    this.subscriptionModel.create(subscription);
+    return await subscription.save();
+    // this.subscriptionModel.create(subscription);
   }
 
   async edit(subscription: Subscription): Promise<[number, Subscription[]]> {
