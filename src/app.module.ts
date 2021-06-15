@@ -10,7 +10,9 @@ import { Sequelize } from 'sequelize-typescript';
 import configuration from './config/configuration';
 import { HealthModule } from './health/health.module';
 import { TasksModule } from './tasks/tasks.module';
+import { Subscription } from './tournaments/entities/subscription.entity';
 import { Tournament } from './tournaments/entities/tournament.entity';
+import { PublisherModule } from './tournaments/publisher/games.publisher.module';
 import { TournamentsModule } from './tournaments/tournaments.module';
 
 @Module({
@@ -18,6 +20,7 @@ import { TournamentsModule } from './tournaments/tournaments.module';
     HealthModule,
     MorganModule,
     TournamentsModule,
+    PublisherModule,
     TasksModule,
     EventEmitterModule.forRoot(),
     ThrottlerModule.forRoot({
@@ -25,7 +28,7 @@ import { TournamentsModule } from './tournaments/tournaments.module';
       limit: 10,
     }),
     ConfigModule.forRoot({
-      envFilePath: '.development.env',
+      envFilePath: ['.env', '.development.env'],
       isGlobal: true,
       load: [configuration],
     }),
@@ -56,7 +59,7 @@ import { TournamentsModule } from './tournaments/tournaments.module';
           database: config.get('database.database'),
           repositoryMode: true,
         });
-        sequelize.addModels([Tournament]);
+        sequelize.addModels([Tournament, Subscription]);
         await sequelize.sync();
         SequelizeSlugify.slugifyModel(Tournament, {
           source: ['title'],

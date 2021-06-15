@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common';
 import { CreateTournamentDto } from './dto/create-tournament.dto';
 import { TournamentDto } from './dto/tournament.dto';
 import { UpdateTournamentDto } from './dto/update-tournament.dto';

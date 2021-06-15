@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { CreateTournamentDto } from './dto/create-tournament.dto';
-import { TournamentDto } from './dto/tournament.dto';
-import { UpdateTournamentDto } from './dto/update-tournament.dto';
-import { Tournament } from './entities/tournament.entity';
-import { TournamentsScheduler } from './tournaments.scheduler';
+import { CreateTournamentDto } from '../dto/create-tournament.dto';
+import { TournamentDto } from '../dto/tournament.dto';
+import { UpdateTournamentDto } from '../dto/update-tournament.dto';
+import { Tournament } from '../entities/tournament.entity';
+import { TournamentsScheduler } from '../tournaments.scheduler';
 
 @Injectable()
 export class TournamentsService {

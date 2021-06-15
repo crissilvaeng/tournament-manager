@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Subscription } from '../models/subscription.model';
+import { Subscription } from '../../tournaments/entities/subscription.entity';
 
 @Injectable()
 export class SubscriptionService {

@@ -3,9 +3,9 @@ import { TournamentController } from './controllers/tournament.controller';
 import { TournamentService } from './services/tournament.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Tournament } from './models/tournament.model';
-import { SubscriptionController } from './controllers/subscription.controller';
-import { SubscriptionService } from './services/subscription.service';
-import { Subscription } from './models/subscription.model';
+import { SubscriptionController } from '../tournaments/controllers/subscription.controller';
+import { SubscriptionService } from '../tournaments/services/subscription.service';
+import { Subscription } from '../tournaments/entities/subscription.entity';
 import { BullModule } from '@nestjs/bull';
 
 @Module({

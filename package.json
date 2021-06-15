@@ -49,6 +49,7 @@
     "moment": "^2.29.1",
     "morgan": "^1.10.0",
     "mysql2": "^2.2.5",
+    "nats": "^1.4.12",
     "nest-morgan": "^2.0.0",
     "redis": "^3.1.2",
     "reflect-metadata": "^0.1.13",
