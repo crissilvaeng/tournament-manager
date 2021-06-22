@@ -20,7 +20,7 @@ async function bootstrap() {
   app.connectMicroservice({
     transport: Transport.TCP,
     options: {
-      port: process.env.PORT,
+      port: 3002,
       url: 'nats://localhost:4222',
     },
   });
@@ -41,6 +41,6 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document);
 
   await app.startAllMicroservicesAsync();
-  await app.listen(process.env.PORT);
+  await app.listen(3002);
 }
 bootstrap();
