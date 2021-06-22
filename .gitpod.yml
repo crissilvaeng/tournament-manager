@@ -7,7 +7,7 @@ tasks:
   - command: redis-server
 
 ports:
-  - port: 3000
+  - port: 3002
     onOpen: ignore
 
 github:
