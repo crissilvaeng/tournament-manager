@@ -1,11 +1,11 @@
-import { IsNotEmpty, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class Game {
-  @IsUUID()
+  @IsString()
   @IsNotEmpty()
   white: string;
 
-  @IsUUID()
+  @IsString()
   @IsNotEmpty()
   black: string;
 
