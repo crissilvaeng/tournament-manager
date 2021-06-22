@@ -1,27 +1,24 @@
-import { ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
-import { Transport } from '@nestjs/microservices';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import 'reflect-metadata';
+
 import * as Case from 'case';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
-import 'reflect-metadata';
+
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
 import { AppModule } from './app.module';
+import { NestFactory } from '@nestjs/core';
+import { Transport } from '@nestjs/microservices';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    cors: true,
-    logger:
-      process.env.NODE_ENV === 'development'
-        ? ['log', 'debug', 'error', 'verbose', 'warn']
-        : ['error', 'warn'],
-  });
+  const app = await NestFactory.create(AppModule, { cors: true });
 
   app.connectMicroservice({
     transport: Transport.TCP,
     options: {
       port: process.env.PORT,
-      url: 'nats://localhost:4222',
+      url: process.env.NATS_URL,
     },
   });
 

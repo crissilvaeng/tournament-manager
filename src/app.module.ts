@@ -1,19 +1,20 @@
-import { BullModule } from '@nestjs/bull';
-import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { APP_INTERCEPTOR } from '@nestjs/core';
-import { EventEmitterModule } from '@nestjs/event-emitter';
-import { ThrottlerModule } from '@nestjs/throttler';
 import { MorganInterceptor, MorganModule } from 'nest-morgan';
-import { SequelizeSlugify } from 'sequelize-slugify';
-import { Sequelize } from 'sequelize-typescript';
-import configuration from './config/configuration';
+
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { BullModule } from '@nestjs/bull';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 import { HealthModule } from './health/health.module';
-import { TasksModule } from './tasks/tasks.module';
-import { Subscription } from './tournaments/entities/subscription.entity';
-import { Tournament } from './tournaments/entities/tournament.entity';
+import { Module } from '@nestjs/common';
 import { PublisherModule } from './tournaments/publisher/games.publisher.module';
+import { Sequelize } from 'sequelize-typescript';
+import { SequelizeSlugify } from 'sequelize-slugify';
+import { Subscription } from './tournaments/entities/subscription.entity';
+import { TasksModule } from './tasks/tasks.module';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { Tournament } from './tournaments/entities/tournament.entity';
 import { TournamentsModule } from './tournaments/tournaments.module';
+import configuration from './config/configuration';
 
 @Module({
   imports: [
@@ -28,7 +29,7 @@ import { TournamentsModule } from './tournaments/tournaments.module';
       limit: 10,
     }),
     ConfigModule.forRoot({
-      envFilePath: ['.env', '.development.env'],
+      envFilePath: '.env',
       isGlobal: true,
       load: [configuration],
     }),
