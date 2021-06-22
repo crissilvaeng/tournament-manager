@@ -14,13 +14,13 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
 
-  app.connectMicroservice({
-    transport: Transport.TCP,
-    options: {
-      port: process.env.PORT,
-      url: process.env.NATS_URL,
-    },
-  });
+  // app.connectMicroservice({
+  //   transport: Transport.TCP,
+  //   options: {
+  //     port: process.env.PORT,
+  //     url: process.env.NATS_URL,
+  //   },
+  // });
 
   app.use(compression());
   app.use(helmet());
@@ -37,7 +37,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
-  await app.startAllMicroservicesAsync();
+  // await app.startAllMicroservicesAsync();
   await app.listen(process.env.PORT);
 }
 bootstrap();
