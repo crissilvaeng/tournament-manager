@@ -1,7 +1,4 @@
 import { Controller, Get } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { RedisOptions, Transport } from '@nestjs/microservices';
-import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import {
   DiskHealthIndicator,
   HealthCheck,
@@ -10,6 +7,10 @@ import {
   MicroserviceHealthIndicator,
   SequelizeHealthIndicator,
 } from '@nestjs/terminus';
+import { NatsOptions, RedisOptions, Transport } from '@nestjs/microservices';
+
+import { ApiExcludeEndpoint } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('health')
 export class HealthController {
@@ -39,6 +40,13 @@ export class HealthController {
             url: this.config.get<string>('REDIS_URL'),
           },
         }),
+        async () =>
+      this.microservice.pingCheck<NatsOptions>('nats', {
+        transport: Transport.NATS,
+        options: {
+          url: this.config.get<string>('NATS_URL'),
+        },
+      }),
     ]);
   }
 }
