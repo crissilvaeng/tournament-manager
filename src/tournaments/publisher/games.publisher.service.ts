@@ -21,7 +21,7 @@ export class GamesPublisherService implements OnModuleInit, OnModuleDestroy {
   }
 
   publish(game: Game): { success: boolean } {
-    this.client.emit('create_game', JSON.stringify(game));
+    this.client.emit('create_game', game);
     return {
       success: true,
     };
