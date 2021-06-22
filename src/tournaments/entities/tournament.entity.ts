@@ -1,5 +1,6 @@
 import { Exclude, Expose } from 'class-transformer';
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { Subscription } from './subscription.entity';
 
 export enum TournamentStatus {
   Open = 'OPEN',
@@ -56,6 +57,9 @@ export class Tournament extends Model {
     defaultValue: TournamentStatus.Open,
   })
   status: string;
+
+  @HasMany(() => Subscription)
+  subscriptions: Subscription[];
 
   @Column({
     type: DataType.VIRTUAL,

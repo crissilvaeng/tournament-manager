@@ -4,6 +4,7 @@ import {
   Controller,
   Get,
   HttpCode,
+  Inject,
   NotFoundException,
   Param,
   Patch,
@@ -15,16 +16,19 @@ import {
   ApiNotFoundResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateTournamentDto } from './dto/create-tournament.dto';
-import { TournamentDto } from './dto/tournament.dto';
-import { UpdateTournamentDto } from './dto/update-tournament.dto';
-import { TournamentsService } from './tournaments.service';
+import { CreateTournamentDto } from '../dto/create-tournament.dto';
+import { TournamentDto } from '../dto/tournament.dto';
+import { UpdateTournamentDto } from '../dto/update-tournament.dto';
+import { ITournamentsService } from '../tournaments.service.interface';
 
 @ApiTags('Tournaments')
 @Controller('tournaments')
 @UseInterceptors(ClassSerializerInterceptor)
 export class TournamentsController {
-  constructor(private readonly tournamentsService: TournamentsService) {}
+  constructor(
+    @Inject('ITournamentsService')
+    private readonly tournamentsService: ITournamentsService,
+  ) {}
 
   @Post()
   create(

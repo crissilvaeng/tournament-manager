@@ -1,5 +1,6 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { Transport } from '@nestjs/microservices';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as Case from 'case';
 import * as compression from 'compression';
@@ -14,6 +15,14 @@ async function bootstrap() {
       process.env.NODE_ENV === 'development'
         ? ['log', 'debug', 'error', 'verbose', 'warn']
         : ['error', 'warn'],
+  });
+
+  app.connectMicroservice({
+    transport: Transport.TCP,
+    options: {
+      port: 3001,
+      url: 'nats://localhost:4222',
+    },
   });
 
   app.use(compression());
@@ -31,6 +40,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
+  await app.startAllMicroservicesAsync();
   await app.listen(process.env.PORT);
 }
 bootstrap();

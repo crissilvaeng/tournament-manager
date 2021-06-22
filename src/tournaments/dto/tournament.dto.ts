@@ -1,5 +1,12 @@
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsOptional, IsString, MinDate } from 'class-validator';
+import {
+  IsArray,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MinDate,
+} from 'class-validator';
+import { Subscription } from '../entities/subscription.entity';
 
 export class TournamentDto {
   @IsString()
@@ -21,4 +28,8 @@ export class TournamentDto {
   @IsString()
   @IsNotEmpty()
   status: string;
+
+  @IsArray()
+  @IsOptional()
+  subscriptions?: Subscription[];
 }
