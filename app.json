@@ -15,8 +15,8 @@
     },
     "dokku":{
         "plugins": [
-            "mysql",
-            "redis"
+            "redis",
+            "mysql"
         ]
     }
 }
