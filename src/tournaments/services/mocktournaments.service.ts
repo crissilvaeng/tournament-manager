@@ -14,9 +14,11 @@ export class MockTournamentsService {
       status: 'open',
     };
     resolve(tournament);
+    reject();
   });
-
+  private noWarnings = 'All good!';
   create(tournament: CreateTournamentDto): Promise<TournamentDto> {
+    this.noWarnings = JSON.stringify(tournament);
     return this.result;
   }
   findAll(): Promise<TournamentDto[]> {
@@ -31,16 +33,23 @@ export class MockTournamentsService {
         },
       ];
       resolve(tournament);
+      reject();
     });
     return resultArray;
   }
   findOne(slug: string): Promise<TournamentDto> {
+    this.noWarnings = JSON.stringify(slug);
     return this.result;
   }
   update(slug: string, tournament: UpdateTournamentDto): Promise<number> {
+    this.noWarnings = JSON.stringify(slug) + JSON.stringify(tournament);
+
     const result = new Promise<number>((resolve, reject) => {
       resolve(1);
+      reject();
     });
+    this.noWarnings = 'All good!';
+    console.log(this.noWarnings);
     return result;
   }
 }

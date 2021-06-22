@@ -7,7 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { Subscription } from '../../tournaments/entities/subscription.entity';
+import { Subscription } from '../entities/subscription.entity';
 import { SubscriptionService } from '../services/subscription.service';
 
 @Controller('subscription')

@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TournamentDto } from './dto/tournament.dto';
 import { CreateTournamentDto } from './dto/create-tournament.dto';
-import { TournamentsController } from './tournaments.controller';
-import { MockTournamentsService } from './mocktournaments.service';
+import { TournamentsController } from './controllers/tournaments.controller';
+import { MockTournamentsService } from './services/mocktournaments.service';
 
 describe('AppController', () => {
   let tournamentsController: TournamentsController;
@@ -16,6 +16,7 @@ describe('AppController', () => {
       status: 'open',
     };
     resolve(tournament);
+    reject();
   });
 
   beforeEach(async () => {
@@ -64,6 +65,7 @@ describe('AppController', () => {
           },
         ];
         resolve(tournament);
+        reject();
       });
       jest
         .spyOn(tournamentsService, 'findAll')

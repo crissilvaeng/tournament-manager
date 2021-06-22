@@ -34,7 +34,6 @@ export class TournamentsScheduler {
   async consume(task: ScheduleTask) {
     const tournament = task.payload as TournamentDto;
     this.logger.log(`Processing event. ${JSON.stringify(tournament)}`);
-    // var fetchedTornament = await this.tournamentService.findOne(tournament.slug);
     const fetchedTornament = await Tournament.findOne({
       include: [Subscription],
       where: {
